@@ -1,0 +1,68 @@
+.content{
+display: flex;
+flex-direction: column;
+padding: 2em !important;
+}
+.card-top{
+    display: flex;
+}
+
+.card-title{
+margin-left: 1.5em;
+flex: 2;
+
+}
+.card-title p{
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.card-title h5{
+    font-size: 14px;
+    color: rgb(161, 157, 157);
+    text-transform: lowercase;
+    letter-spacing: 1.5px;
+}
+.card-center{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 1.5em
+}
+.card-profession{
+    font-weight: bold;
+    font-size: 18px;
+
+     text-transform: capitalize;
+}
+.card-center p{
+    font-size: 14px;
+}
+
+.card-social{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   
+}
+.card-social a{
+    margin-right: 8px;
+    cursor: pointer;
+}
+.card-bottom{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+.card-bottom button {
+    padding: 6px 18px;
+    margin-left: 5px;
+    border: none;outline: none;
+    border-radius: 8px;
+    background-color: #11ae65;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+}
