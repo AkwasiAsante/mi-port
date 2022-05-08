@@ -1,6 +1,6 @@
 import axios from "axios";
 
-// const API = axios.create({ baseURL: "http://localhost:5000" });
+//const API = axios.create({ baseURL: "http://localhost:5000" });
 const API = axios.create({
   baseURL: "https://arcane-brushlands-41356.herokuapp.com",
 });
@@ -57,4 +57,6 @@ export const fetchProfileBySearch = (searchQuery) =>
 export const createProfile = (newProfile) => API.post("/profile", newProfile);
 export const updateProfile = (id, userData) =>
   API.patch(`/profile/${id}`, userData);
+export const verifiedAccount = (id, userId) =>
+  API.patch(`/profile/verified-account/${id}`, { userId });
 export const deleteProfile = (id) => API.delete(`/profile/${id}`);

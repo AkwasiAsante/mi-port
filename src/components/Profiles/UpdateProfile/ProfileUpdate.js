@@ -41,6 +41,7 @@ const ProfileUpdate = () => {
     firstName: "",
     lastName: "",
     popularName: "",
+    otherName: "",
     gender: "",
     phone: "",
     email: "",
@@ -292,6 +293,13 @@ const ProfileUpdate = () => {
                 handleChange={handleChange}
                 half
                 required='required'
+              />
+              <Input
+                name='otherName'
+                label='Other Name(s)'
+                value={userData.otherName}
+                handleChange={handleChange}
+                half
               />
 
               <Input

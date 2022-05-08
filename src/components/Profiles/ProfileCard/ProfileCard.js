@@ -14,6 +14,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { getProfile } from "../../../redux/apiCalls/profileApiCalls";
 import "./profilecard.css";
+import useravatar from "../../../assets/avatar.svg";
 
 const ProfileCard = ({ profile, setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem("userProfile"));
@@ -46,26 +47,25 @@ const ProfileCard = ({ profile, setCurrentId }) => {
           <Avatar
             size={60}
             sx={{ width: 56, height: 56 }}
-            src={
-              profile.selectedFile ||
-              "https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png"
-            }
+            src={profile.selectedFile || useravatar}
             alt=''
           />
           <div className='card-title'>
             <p>{`${profile.firstName} ${profile.lastName}`}</p>
-            <h5>{profile?.address}</h5>
+            <h5>{profile?.address || "(~No Address~)"}</h5>
           </div>
         </div>
         <div className='card-center'>
-          <h1 className='card-profession'>{profile?.profession}</h1>
+          <h1 className='card-profession'>
+            {profile?.profession || profile?.popularName || "No Prefession"}
+          </h1>
           <p> {profile?.skills?.map((skill) => `#${skill} `)}</p>
           <p
             style={{ color: "#00acee", fontStyle: "italic", cursor: "pointer" }}
           >
-            {profile?.email}
+            {profile?.email || "No email address"}
           </p>
-          <p>{profile?.phone}</p>
+          <p>{profile?.phone || "XXXXXXXXX"}</p>
         </div>
         <div className='card-bottom'>
           <div className='card-social'>

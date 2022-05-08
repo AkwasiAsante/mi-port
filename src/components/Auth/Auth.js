@@ -70,7 +70,7 @@ const Auth = () => {
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
-  console.log(isPending);
+
   return (
     <Container component='main' maxWidth='xs'>
       <Paper className={classes.paper} elevation={6}>
@@ -163,7 +163,8 @@ const Auth = () => {
             )}
             onSuccess={googleSuccess}
             onFailure={googleError}
-            cookiePolicy='single_host_origin'
+            cookiePolicy={"single_host_origin"}
+            isSignedIn={true}
           />
           <Grid container justifyContent='center'>
             <Grid item>

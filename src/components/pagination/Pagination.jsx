@@ -30,6 +30,7 @@ const Paginate = ({ page, type }) => {
       color='primary'
       renderItem={(item) => (
         <PaginationItem
+          sx={{ mb: 2 }}
           {...item}
           component={Link}
           to={

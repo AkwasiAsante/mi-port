@@ -5,15 +5,20 @@ import {
   Twitter,
   WhatsApp,
   Search,
+  Close,
+  Verified,
 } from "@mui/icons-material";
 import {
+  Alert,
   Avatar,
   Button,
   CircularProgress,
+  Collapse,
   Container,
   Divider,
   Grid,
   Icon,
+  IconButton,
   Paper,
   TextField,
   Typography,
@@ -24,6 +29,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   getProfile,
   getProfileBySearch,
+  verifiedAccount,
 } from "../../../redux/apiCalls/profileApiCalls";
 import ProfileCard from "../ProfileCard/ProfileCard";
 import "./profiledetail.css";
@@ -43,6 +49,8 @@ const ProfileDetail = () => {
   const [showSearch, setShowSearch] = useState(false);
   const userId = location.pathname.split("/")[2];
   const [searchValue, setSearchValue] = useState("");
+  const [open, setOpen] = useState(true);
+  const [alertMe, setAlertMe] = useState(false);
 
   useEffect(() => {
     getProfile(userId, dispatch);
@@ -59,11 +67,17 @@ const ProfileDetail = () => {
 
   const handleSearch = () => {
     getProfile(searchValue, dispatch);
-    console.log(searchValue);
   };
   const recommendedProfiles = recomendProfiles[0]?.filter(
     ({ _id }) => _id !== profile?._id
   );
+  const handleSearchProfile = () => {
+    handleSearch(searchValue);
+    setAlertMe(true);
+  };
+  const handleVerifyAccount = () => {
+    verifiedAccount(profile._id, currentUser, dispatch);
+  };
 
   return (
     <div className='profile-detail'>
@@ -75,6 +89,42 @@ const ProfileDetail = () => {
         <>
           {profile ? (
             <Container>
+              {alertMe ? (
+                <Collapse in={open}>
+                  <Alert
+                    action={
+                      <>
+                        <IconButton
+                          aria-label='close'
+                          color='inherit'
+                          size='medium'
+                          onClick={() => {
+                            setOpen(false);
+                          }}
+                        >
+                          <Close fontSize='inherit' />
+                        </IconButton>
+                      </>
+                    }
+                    sx={{ mb: 2 }}
+                    variant='filled'
+                    severity='info'
+                  >
+                    Please kindly verify that this information belongs to you,
+                    then click on Verified Account. Thank you!
+                    <IconButton
+                      color='inherit'
+                      size='small'
+                      onClick={handleVerifyAccount}
+                      sx={{ ml: 3, bgColor: "#00675b !important" }}
+                    >
+                      <Verified fontSize='inherit' />
+                      Verified Account
+                    </IconButton>
+                  </Alert>
+                </Collapse>
+              ) : null}
+
               <Grid
                 container
                 justifyContent='space-between'
@@ -168,7 +218,9 @@ const ProfileDetail = () => {
                       Position: <b>{profile?.position}</b>
                     </Typography>
                     <Divider />
-                    <Typography>Branch(s):</Typography>
+                    <Typography>
+                      <b>Branch(s):</b>
+                    </Typography>
                     {profile?.branch?.map((b, index) => (
                       <Typography key={index}>
                         <b>#</b>
@@ -268,7 +320,6 @@ const ProfileDetail = () => {
                 }}
               >
                 <Link to='/profile/add-update' disabled={showSearch}>
-                  {/* <Edit sx={{ color: "#00acee", ml: 1 }} /> */}
                   <Button
                     sx={{
                       bgcolor: "#4169E1",
@@ -326,7 +377,7 @@ const ProfileDetail = () => {
                         hover: "",
                       }}
                       className='searchMe'
-                      onClick={handleSearch}
+                      onClick={handleSearchProfile}
                     >
                       Search
                     </Button>
@@ -340,7 +391,7 @@ const ProfileDetail = () => {
                     }}
                   >
                     Please note that you can search by your email or phone
-                    number
+                    number or first name
                   </p>
                 </div>
               )}

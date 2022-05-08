@@ -63,11 +63,26 @@ export const getProfile = async (profileId, dispatch) => {
 
 export const updateProfile = async (id, userData, dispatch, navigate) => {
   dispatch(profileStart());
+  console.log(userData);
   try {
     const { data } = await api.updateProfile(id, userData);
-
+    console.log(data);
     dispatch(profileSuccess(data));
     navigate(`/profile/${userData.userId}`);
+  } catch (error) {
+    console.log(error);
+    dispatch(profileError());
+  }
+};
+export const verifiedAccount = async (id, userId, dispatch) => {
+  dispatch(profileStart());
+
+  try {
+    const { data } = await api.verifiedAccount(id, userId);
+
+    dispatch(profileSuccess(data));
+
+    window.location.reload();
   } catch (error) {
     console.log(error);
     dispatch(profileError());
